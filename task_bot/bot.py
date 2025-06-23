@@ -31,18 +31,18 @@ def send_message(chat_id, text):
 
     try:
         response = requests.post(url, data=payload)
-        print("📨 Reply status:", response.status_code)
-        print("📨 Reply body:", response.text)
+        print(" Reply status:", response.status_code)
+        print(" Reply body:", response.text)
     except Exception as e:
-        print("⚠️ Failed to send message:", e)
+        print(" Failed to send message:", e)
 
 
     try:
         response = requests.post(url, data=payload)
-        print("📨 Reply status:", response.status_code)
-        print("📨 Reply body:", response.text)
+        print(" Reply status:", response.status_code)
+        print(" Reply body:", response.text)
     except Exception as e:
-        print("⚠️ Failed to send message:", e)
+        print(" Failed to send message:", e)
 
 
 def handle_update(update):
@@ -53,7 +53,7 @@ def handle_update(update):
     chat_id = message["chat"]["id"]
     username = message["from"].get("username", f"user_{message['from']['id']}")
 
-    print(f"👤 Message from chat_id: {chat_id}, username: {username}")
+    print(f" Message from chat_id: {chat_id}, username: {username}")
 
     user = User.objects.first()
     if user:
@@ -61,9 +61,9 @@ def handle_update(update):
             user=user,
             defaults={"telegram_username": username}
         )
-        print("✅ Saving username to DB worked")
-        print("➡️ About to send reply to user...")
-        send_message(chat_id, f"Hi @{username}, you are now registered with TaskBot ✅")
+        print(" Saving username to DB worked")
+        print("out to send reply to user...")
+        send_message(chat_id, f"Hi @{username}, you are now registered with TaskBot ")
 
 def run_bot():
     print("🤖 Telegram bot is running...")
@@ -73,12 +73,12 @@ def run_bot():
             updates = get_updates(offset)
             if updates.get("ok"):
                 for update in updates["result"]:
-                    print("📦 Update:", update)
+                    print("Update:", update)
                     handle_update(update)
                     offset = update["update_id"] + 1
             time.sleep(2)
         except Exception as e:
-            print("⚠️ Bot error:", e)
+            print(" Bot error:", e)
             time.sleep(5)
 
 if __name__ == "__main__":
